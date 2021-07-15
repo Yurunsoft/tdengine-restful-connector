@@ -1,0 +1,6 @@
+.idea
+.vscode
+*.lock
+*.log
+vendor
+*.cache

@@ -1,0 +1,27 @@
+name: ci
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-20.04
+
+    strategy:
+      fail-fast: false
+      matrix:
+        php: [7.0, 7.1, 7.2, 7.3, 7.4, 8.0]
+
+    env:
+      PHP_DOCKER_VERSION: ${{ matrix.php }}
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: prepare
+        run: |
+          cd .github
+          docker-compose up -d
+          docker exec php composer update
+
+      - name: test
+        run: docker exec php composer test

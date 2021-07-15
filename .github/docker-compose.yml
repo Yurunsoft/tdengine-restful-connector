@@ -1,0 +1,30 @@
+version: "3"
+services:
+  tdengine:
+      restart: always
+      image: tdengine/tdengine:2.0.20.9
+      hostname: tdengine
+      container_name: tdengine
+      privileged: true
+      ports:
+        - 6020:6020
+        - 6030-6042:6030-6042/tcp
+        - 6030-6042:6030-6042/udp
+  php:
+    container_name: "php"
+    depends_on:
+      - tdengine
+    build:
+        context: .
+        dockerfile: ./php.dockerfile
+        args:
+            PHP_DOCKER_VERSION: ${PHP_DOCKER_VERSION}
+    volumes:
+        - "${GITHUB_WORKSPACE}:/app:rw"
+    environment:
+      TDENGINE_HOST: tdengine
+    working_dir: /app
+    ulimits:
+        core: -1
+    privileged: true
+    command: tail -f /etc/group

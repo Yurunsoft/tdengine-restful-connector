@@ -1,0 +1,45 @@
+<?php
+
+declare(strict_types=1);
+
+if (!file_exists(__DIR__ . '/src'))
+{
+    exit(0);
+}
+
+return (new PhpCsFixer\Config())
+    ->setRules([
+        '@Symfony'                   => true,
+        '@Symfony:risky'             => true,
+        'php_unit_dedicate_assert'   => ['target' => '5.6'],
+        'array_syntax'               => ['syntax' => 'short'],
+        'array_indentation'          => true,
+        'binary_operator_spaces'     => [
+            'operators' => [
+                '=>' => 'align_single_space',
+            ],
+        ],
+        'concat_space' => [
+            'spacing' => 'one',
+        ],
+        'fopen_flags'                => false,
+        'protected_to_private'       => false,
+        'native_constant_invocation' => true,
+        'combine_nested_dirname'     => true,
+        'single_quote'               => true,
+        'braces'                     => [
+            'position_after_control_structures' => 'next',
+        ],
+        'single_line_comment_style'  => false,
+        'phpdoc_to_comment'          => false,
+        'declare_strict_types'       => true,
+    ])
+    ->setRiskyAllowed(true)
+    ->setFinder(
+        PhpCsFixer\Finder::create()
+            ->exclude(__DIR__ . '/vendor')
+            ->in(__DIR__ . '/src')
+            ->in(__DIR__ . '/tests')
+            ->append([__FILE__])
+    )
+;
