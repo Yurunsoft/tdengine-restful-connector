@@ -35,13 +35,16 @@ $client = new \Yurun\TDEngine\Client(new \Yurun\TDEngine\ClientConfig([
     // 'keepAlive'       => true,
 ]));
 
+// 通过 sql 方法执行 sql 语句
 var_dump($client->sql('create database if not exists db_test'));
 var_dump($client->sql('show databases'));
 var_dump($client->sql('create table if not exists db_test.tb (ts timestamp, temperature int, humidity float)'));
 var_dump($client->sql(sprintf('insert into db_test.tb values(%s,%s,%s)', time() * 1000, mt_rand(), mt_rand() / mt_rand())));
 
 $result = $client->sql('select * from db_test.tb');
+
 $result->getResponse(); // 获取接口原始返回数据
+
 // 获取列数据
 foreach ($result->getColumns() as $column)
 {
@@ -50,12 +53,16 @@ foreach ($result->getColumns() as $column)
     $column->getTypeName(); // 列类型名称
     $column->getLength(); // 类型长度
 }
+
 // 获取数据
 foreach ($result->getData() as $row)
 {
     echo $row['列名']; // 经过处理，可以直接使用列名获取指定列数据
 }
+
 $result->getStatus(); // 告知操作结果是成功还是失败；同接口返回格式
+
 $result->getHead(); // 表的定义，如果不返回结果集，则仅有一列“affected_rows”。（从 2.0.17 版本开始，建议不要依赖 head 返回值来判断数据列类型，而推荐使用 column_meta。在未来版本中，有可能会从返回值中去掉 head 这一项。）；同接口返回格式
+
 $result->getRow(); // 表明总共多少行数据；同接口返回格式
 ```
