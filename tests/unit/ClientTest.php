@@ -6,22 +6,12 @@ namespace Yurun\TDEngine\Test;
 
 use PHPUnit\Framework\TestCase;
 use Yurun\TDEngine\Client;
-use Yurun\TDEngine\ClientConfig;
-use Yurun\TDEngine\Constants\TimeStampFormat;
 
 class ClientTest extends TestCase
 {
     private function getClient(): Client
     {
-        return new Client(new ClientConfig([
-            'host'            => getenv('TDENGINE_HOST') ?: '127.0.0.1',
-            'hostName'        => getenv('TDENGINE_HOST_NAME') ?: '',
-            'port'            => getenv('TDENGINE_PORT') ?: 6041,
-            'user'            => getenv('TDENGINE_USER') ?: 'root',
-            'password'        => getenv('TDENGINE_PASSWORD') ?: 'taosdata',
-            'ssl'             => getenv('TDENGINE_SSL') ?: false,
-            'timestampFormat' => getenv('TDENGINE_TIMESTAMP_FORMAT') ?: TimeStampFormat::LOCAL_STRING,
-        ]));
+        return new Client(TestUtil::getClientConfig());
     }
 
     private function getDbName(): string
