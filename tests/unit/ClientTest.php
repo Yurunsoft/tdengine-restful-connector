@@ -6,8 +6,6 @@ namespace Yurun\TDEngine\Test;
 
 use PHPUnit\Framework\TestCase;
 use Yurun\TDEngine\Client;
-use Yurun\TDEngine\ClientConfig;
-use Yurun\TDEngine\Constants\TimeStampFormat;
 
 class ClientTest extends TestCase
 {

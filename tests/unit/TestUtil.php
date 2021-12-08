@@ -11,10 +11,9 @@ class TestUtil
 {
     private function __construct()
     {
-        
     }
 
-    public static function getClientConfig():ClientConfig
+    public static function getClientConfig(): ClientConfig
     {
         return new ClientConfig([
             'host'            => getenv('TDENGINE_HOST') ?: '127.0.0.1',

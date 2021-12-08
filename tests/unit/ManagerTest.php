@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Yurun\TDEngine\Test;
 
 use PHPUnit\Framework\TestCase;
 use Yurun\TDEngine\ClientConfig;
 use Yurun\TDEngine\TDEngineManager;
 
-class ConnectionTest extends TestCase
+class ManagerTest extends TestCase
 {
     public function testClientConfig(): void
     {
@@ -20,7 +22,7 @@ class ConnectionTest extends TestCase
 
     public function testRemoveClientConfig(): void
     {
-        TDEngineManager::setClientConfig('testx', new ClientConfig);
+        TDEngineManager::setClientConfig('testx', new ClientConfig());
         $this->assertNotNull(TDEngineManager::getClientConfig('testx'));
         TDEngineManager::removeClientConfig('testx');
         $this->assertNull(TDEngineManager::getClientConfig('testx'));
@@ -38,5 +40,4 @@ class ConnectionTest extends TestCase
         $client = TDEngineManager::getClient();
         $this->assertNotNull($client);
     }
-
 }
