@@ -24,4 +24,4 @@ jobs:
           docker exec php composer update
 
       - name: Test
-        run: docker exec php ./vendor/bin/php-cs-fixer fix --dry-run
+        run: docker exec php ./vendor/bin/php-cs-fixer fix --dry-run --diff
