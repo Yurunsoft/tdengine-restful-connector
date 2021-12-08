@@ -1,7 +1,7 @@
 # tdengine-restful-connector
 
 [![Latest Version](https://poser.pugx.org/yurunsoft/tdengine-restful-connector/v/stable)](https://packagist.org/packages/yurunsoft/tdengine-restful-connector)
-![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/Yurunsoft/tdengine-restful-connector/ci/dev)
+![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/Yurunsoft/tdengine-restful-connector/ci/master)
 [![Php Version](https://img.shields.io/badge/php-%3E=7.0-brightgreen.svg)](https://secure.php.net/)
 [![License](https://img.shields.io/github/license/Yurunsoft/tdengine-restful-connector.svg)](https://github.com/Yurunsoft/tdengine-restful-connector/blob/master/LICENSE)
 
