@@ -23,6 +23,28 @@
 
 ## 使用
 
+**使用连接管理器：**
+
+```php
+// 增加名称为 test 的连接配置
+\Yurun\TDEngine\TDEngineManager::setClientConfig('test', new \Yurun\TDEngine\ClientConfig([
+    // 'host'            => '127.0.0.1',
+    // 'hostName'        => '',
+    // 'port'            => 6041,
+    // 'user'            => 'root',
+    // 'password'        => 'taosdata',
+    // 'ssl'             => false,
+    // 'timestampFormat' => \Yurun\TDEngine\Constants\TimeStampFormat::LOCAL_STRING,
+    // 'keepAlive'       => true,
+]));
+// 设置默认数据库为test
+\Yurun\TDEngine\TDEngineManager::setDefaultClientName('test');
+// 获取客户端对象（\Yurun\TDEngine\Client）
+$client = \Yurun\TDEngine\TDEngineManager::getClient();
+```
+
+**直接 new 客户端：**
+
 ```php
 $client = new \Yurun\TDEngine\Client(new \Yurun\TDEngine\ClientConfig([
     // 'host'            => '127.0.0.1',
