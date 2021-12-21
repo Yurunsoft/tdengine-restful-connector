@@ -91,6 +91,11 @@ class Client
             default:
                 throw new InvalidArgumentException(sprintf('Invalid timestampFormat %s', $config->getTimestampFormat()));
         }
+        $db = $config->getDb();
+        if ('' !== $db)
+        {
+            $path .= '/' . $db;
+        }
         $result = $this->request($path, $sql);
 
         return new SqlResult($result);

@@ -34,6 +34,11 @@ class ClientConfig
     protected $password = 'taosdata';
 
     /**
+     * @var string
+     */
+    protected $db = '';
+
+    /**
      * @var bool
      */
     protected $ssl = false;
@@ -115,6 +120,18 @@ class ClientConfig
     public function setPassword(string $password): self
     {
         $this->password = $password;
+
+        return $this;
+    }
+
+    public function getDb(): string
+    {
+        return $this->db;
+    }
+
+    public function setDb(string $db): self
+    {
+        $this->db = $db;
 
         return $this;
     }

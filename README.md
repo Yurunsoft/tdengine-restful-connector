@@ -33,6 +33,7 @@
     // 'port'            => 6041,
     // 'user'            => 'root',
     // 'password'        => 'taosdata',
+    // 'db'              => 'database'
     // 'ssl'             => false,
     // 'timestampFormat' => \Yurun\TDEngine\Constants\TimeStampFormat::LOCAL_STRING,
     // 'keepAlive'       => true,
@@ -52,6 +53,7 @@ $client = new \Yurun\TDEngine\Client(new \Yurun\TDEngine\ClientConfig([
     // 'port'            => 6041,
     // 'user'            => 'root',
     // 'password'        => 'taosdata',
+    // 'db'              => 'database'
     // 'ssl'             => false,
     // 'timestampFormat' => \Yurun\TDEngine\Constants\TimeStampFormat::LOCAL_STRING,
     // 'keepAlive'       => true,
