@@ -78,7 +78,7 @@ class TDEngineManager
     }
 
     /**
-     * 获取 InfluxDB 客户端.
+     * 获取 TDengine 客户端.
      */
     public static function getClient(?string $clientName = null): Client
     {
