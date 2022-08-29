@@ -2,7 +2,7 @@
     "name": "yurunsoft/tdengine-restful-connector",
     "license": "MIT",
     "require": {
-        "php": ">=7.0",
+        "php": ">=7.1",
         "yurunsoft/yurun-http": "^4.3"
     },
     "require-dev": {
