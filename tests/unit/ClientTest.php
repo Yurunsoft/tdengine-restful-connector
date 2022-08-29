@@ -50,7 +50,7 @@ class ClientTest extends TestCase
     {
         $client = $this->getClient();
         $result = $client->sql('select * from db_test.tb order by ts desc limit 1');
-        if([
+        if ([
             [
                 'ts'          => gmdate('Y-m-d H:i:s', $data['time'] / 1000) . '.000',
                 'temperature' => 36,
@@ -58,11 +58,12 @@ class ClientTest extends TestCase
             ],
         ] !== $result->getData() && [
             [
-                'ts'          => gmdate('Y-m-d H:i:s', $data['time'] / 1000) . 'Z',
+                'ts'          => gmdate('Y-m-d\TH:i:s', $data['time'] / 1000) . 'Z',
                 'temperature' => 36,
                 'humidity'    => 44.5,
             ],
-        ] !== $result->getData()){
+        ] !== $result->getData())
+        {
             var_dump($result->getData());
             $this->assertTrue(false);
         }
