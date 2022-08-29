@@ -7,6 +7,8 @@ namespace Yurun\TDEngine\Struct;
 /**
  * @method string getTypeName()
  * @method static string|null getTypeName(int $value)
+ * @method int    getTypeValue()
+ * @method static int|null getTypeValue(string $name)
  */
 class ColumnMeta
 {
@@ -18,20 +20,39 @@ class ColumnMeta
     public const TYPE_FLOAT = 6;
     public const TYPE_DOUBLE = 7;
     public const TYPE_BINARY = 8;
+    public const TYPE_VARCHAR = 8;
     public const TYPE_TIMESTAMP = 9;
     public const TYPE_NCHAR = 10;
+    public const TYPE_UTINYINT = 11;
+    public const TYPE_USMALLINT = 12;
+    public const TYPE_UINT = 13;
+    public const TYPE_UBIGINT = 14;
+    public const TYPE_JSON = 15;
+    public const TYPE_VARBINARY = 16;
+    public const TYPE_DECIMAL = 17;
+    public const TYPE_BLOB = 18;
+    public const TYPE_MEDIUMBLOB = 19;
 
     public const TYPE_MAP = [
-        self::TYPE_BOOL      => 'BOOL',
-        self::TYPE_TINYINT   => 'TINYINT',
-        self::TYPE_SMALLINT  => 'SMALLINT',
-        self::TYPE_INT       => 'INT',
-        self::TYPE_BIGINT    => 'BIGINT',
-        self::TYPE_FLOAT     => 'FLOAT',
-        self::TYPE_DOUBLE    => 'DOUBLE',
-        self::TYPE_BINARY    => 'BINARY',
-        self::TYPE_TIMESTAMP => 'TIMESTAMP',
-        self::TYPE_NCHAR     => 'NCHAR',
+        self::TYPE_BOOL       => 'BOOL',
+        self::TYPE_TINYINT    => 'TINYINT',
+        self::TYPE_SMALLINT   => 'SMALLINT',
+        self::TYPE_INT        => 'INT',
+        self::TYPE_BIGINT     => 'BIGINT',
+        self::TYPE_FLOAT      => 'FLOAT',
+        self::TYPE_DOUBLE     => 'DOUBLE',
+        self::TYPE_BINARY     => 'BINARY',
+        self::TYPE_TIMESTAMP  => 'TIMESTAMP',
+        self::TYPE_NCHAR      => 'NCHAR',
+        self::TYPE_UTINYINT   => 'UTINYINT',
+        self::TYPE_USMALLINT  => 'USMALLINT',
+        self::TYPE_UINT       => 'UINT',
+        self::TYPE_UBIGINT    => 'UBIGINT',
+        self::TYPE_JSON       => 'JSON',
+        self::TYPE_VARBINARY  => 'VARBINARY',
+        self::TYPE_DECIMAL    => 'DECIMAL',
+        self::TYPE_BLOB       => 'BLOB',
+        self::TYPE_MEDIUMBLOB => 'MEDIUMBLOB',
     ];
 
     /**
@@ -62,10 +83,20 @@ class ColumnMeta
      */
     protected $length;
 
-    public function __construct(string $name, int $type, int $length)
+    /**
+     * @param int|string $type
+     */
+    public function __construct(string $name, $type, int $length)
     {
         $this->setName($name);
-        $this->setType($type);
+        if (\is_int($type))
+        {
+            $this->setType($type);
+        }
+        else
+        {
+            $this->setTypeName($type);
+        }
         $this->setLength($length);
     }
 
@@ -78,6 +109,10 @@ class ColumnMeta
         {
             return $this->typeName;
         }
+        elseif ('getTypeValue' === $name)
+        {
+            return $this->type;
+        }
     }
 
     /**
@@ -88,6 +123,18 @@ class ColumnMeta
         if ('getTypeName' === $name)
         {
             return self::TYPE_MAP[$arguments[0] ?? null] ?? null;
+        }
+        elseif ('getTypeValue' === $name)
+        {
+            $value = array_search($arguments[0] ?? null, self::TYPE_MAP);
+            if (false === $value)
+            {
+                return null;
+            }
+            else
+            {
+                return $value;
+            }
         }
     }
 
@@ -119,6 +166,7 @@ class ColumnMeta
     public function setTypeName(string $typeName): self
     {
         $this->typeName = $typeName;
+        $this->type = static::getTypeValue($typeName);
 
         return $this;
     }
