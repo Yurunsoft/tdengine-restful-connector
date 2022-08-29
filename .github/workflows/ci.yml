@@ -23,7 +23,7 @@ jobs:
         run: |
           cd .github
           docker-compose up -d
-          docker exec php composer update
+          docker exec php composer update --ignore-platform-reqs
 
       - name: test
         run: docker exec php composer test
@@ -48,7 +48,7 @@ jobs:
         run: |
           cd .github
           docker-compose up -d
-          docker exec php composer update
+          docker exec php composer update --ignore-platform-reqs
 
       - name: test
         run: docker exec php composer test
