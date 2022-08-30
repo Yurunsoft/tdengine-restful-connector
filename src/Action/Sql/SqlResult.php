@@ -77,4 +77,9 @@ class SqlResult
     {
         return $this->response['rows'];
     }
+
+    public function getCode(): int
+    {
+        return $this->response['code'];
+    }
 }

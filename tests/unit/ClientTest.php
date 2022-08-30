@@ -37,7 +37,7 @@ class ClientTest extends TestCase
     {
         $client = $this->getClient();
         $time = time() * 1000;
-        $result = $client->sql(sprintf('insert into db_test.tb values(%s,%s,%s)', $time, 36, 44.0));
+        $result = $client->sql(sprintf('insert into db_test.tb values(%s,%s,%s)', $time, 36, 44.5));
         $this->assertEquals(1, $result->getRows());
 
         return ['time' => $time];
@@ -50,12 +50,22 @@ class ClientTest extends TestCase
     {
         $client = $this->getClient();
         $result = $client->sql('select * from db_test.tb order by ts desc limit 1');
-        $this->assertEquals([
+        if ([
             [
                 'ts'          => gmdate('Y-m-d H:i:s', $data['time'] / 1000) . '.000',
                 'temperature' => 36,
-                'humidity'    => 44.0,
+                'humidity'    => 44.5,
             ],
-        ], $result->getData());
+        ] !== $result->getData() && [
+            [
+                'ts'          => gmdate('Y-m-d\TH:i:s', $data['time'] / 1000) . 'Z',
+                'temperature' => 36,
+                'humidity'    => 44.5,
+            ],
+        ] !== $result->getData())
+        {
+            var_dump($result->getData());
+            $this->assertTrue(false);
+        }
     }
 }

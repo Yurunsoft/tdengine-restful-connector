@@ -66,7 +66,7 @@ class Client
         {
             throw new NetworkException(sprintf('Http request failed! statusCode:%s, errno:%s, error:%s', $response->getStatusCode(), $response->getErrno(), $response->getError()));
         }
-        if ('succ' !== $result['status'])
+        if ('succ' !== ($result['status'] ?? '') && 0 !== $result['code'])
         {
             throw new OperationException($result['desc'], $result['code']);
         }

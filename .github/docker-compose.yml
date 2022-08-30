@@ -2,7 +2,7 @@ version: "3"
 services:
   tdengine:
       restart: always
-      image: tdengine/tdengine:2.2.2.0
+      image: tdengine/tdengine:${TDENGINE_DOCKER_VERSION}
       hostname: tdengine
       container_name: tdengine
       privileged: true

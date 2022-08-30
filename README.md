@@ -2,14 +2,14 @@
 
 [![Latest Version](https://poser.pugx.org/yurunsoft/tdengine-restful-connector/v/stable)](https://packagist.org/packages/yurunsoft/tdengine-restful-connector)
 ![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/Yurunsoft/tdengine-restful-connector/ci/master)
-[![Php Version](https://img.shields.io/badge/php-%3E=7.0-brightgreen.svg)](https://secure.php.net/)
+[![Php Version](https://img.shields.io/badge/php-%3E=7.1-brightgreen.svg)](https://secure.php.net/)
 [![License](https://img.shields.io/github/license/Yurunsoft/tdengine-restful-connector.svg)](https://github.com/Yurunsoft/tdengine-restful-connector/blob/master/LICENSE)
 
 ## 简介
 
 封装了 [TDEngine](https://github.com/taosdata/TDengine) 的 RESTful 接口，可以使用 PHP 轻松地操作 TDEngine 的数据插入和查询了。
 
-此项目支持在 PHP >= 7.0 的项目中使用。
+此项目支持在 PHP >= 7.1 的项目中使用。
 
 支持在 ThinkPHP、Laravel、[Swoole](https://github.com/swoole/swoole-src)、[imi](https://github.com/imiphp/imi) 等项目中使用
 
