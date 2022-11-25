@@ -35,7 +35,7 @@
     // 'password'        => 'taosdata',
     // 'db'              => 'database'
     // 'ssl'             => false,
-    // 'timestampFormat' => \Yurun\TDEngine\Constants\TimeStampFormat::LOCAL_STRING,
+    // 'timestampFormat' => \Yurun\TDEngine\Constants\TimeStampFormat::LOCAL_STRING, // 此配置 TDengine 3.0 下失效，统一返回格式为：2022-11-25T05:41:04.690Z
     // 'keepAlive'       => true,
     // 'version'         => '3', // TDengine 版本
 ]));
@@ -56,7 +56,7 @@ $client = new \Yurun\TDEngine\Client(new \Yurun\TDEngine\ClientConfig([
     // 'password'        => 'taosdata',
     // 'db'              => 'database'
     // 'ssl'             => false,
-    // 'timestampFormat' => \Yurun\TDEngine\Constants\TimeStampFormat::LOCAL_STRING,
+    // 'timestampFormat' => \Yurun\TDEngine\Constants\TimeStampFormat::LOCAL_STRING, // 此配置 TDengine 3.0 下失效，统一返回格式为：2022-11-25T05:41:04.690Z
     // 'keepAlive'       => true,
     // 'version'         => '3', // TDengine 版本
 ]));
