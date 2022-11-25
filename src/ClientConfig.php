@@ -53,6 +53,13 @@ class ClientConfig
      */
     protected $keepAlive = true;
 
+    /**
+     * TDengine 版本.
+     *
+     * @var string
+     */
+    protected $version = '3';
+
     public function __construct(array $config = [])
     {
         if ($config)
@@ -168,6 +175,18 @@ class ClientConfig
     public function setKeepAlive(bool $keepAlive): self
     {
         $this->keepAlive = $keepAlive;
+
+        return $this;
+    }
+
+    public function getVersion(): string
+    {
+        return $this->version;
+    }
+
+    public function setVersion(string $version): self
+    {
+        $this->version = $version;
 
         return $this;
     }

@@ -4,14 +4,12 @@ declare(strict_types=1);
 
 namespace Yurun\TDEngine;
 
-use InvalidArgumentException;
 use Swoole\Coroutine;
 use Yurun\TDEngine\Action\Sql\SqlResult;
 use Yurun\TDEngine\Constants\TimeStampFormat;
 use Yurun\TDEngine\Exception\NetworkException;
 use Yurun\TDEngine\Exception\OperationException;
 use Yurun\Util\HttpRequest;
-use Yurun\Util\YurunHttp\Http\Psr7\Request;
 use Yurun\Util\YurunHttp\Http\Psr7\Uri;
 
 class Client
@@ -99,19 +97,26 @@ class Client
     public function sql(string $sql): SqlResult
     {
         $config = $this->getConfig();
-        switch ($config->getTimestampFormat())
+        if (version_compare($config->getVersion(), '3', '<'))
         {
-            case TimeStampFormat::LOCAL_STRING:
-                $path = '/rest/sql';
-                break;
-            case TimeStampFormat::TIMESTAMP:
-                $path = '/rest/sqlt';
-                break;
-            case TimeStampFormat::UTC_STRING:
-                $path = '/rest/sqlutc';
-                break;
-            default:
-                throw new InvalidArgumentException(sprintf('Invalid timestampFormat %s', $config->getTimestampFormat()));
+            switch ($config->getTimestampFormat())
+            {
+                case TimeStampFormat::LOCAL_STRING:
+                    $path = '/rest/sql';
+                    break;
+                case TimeStampFormat::TIMESTAMP:
+                    $path = '/rest/sqlt';
+                    break;
+                case TimeStampFormat::UTC_STRING:
+                    $path = '/rest/sqlutc';
+                    break;
+                default:
+                    throw new \InvalidArgumentException(sprintf('Invalid timestampFormat %s', $config->getTimestampFormat()));
+            }
+        }
+        else
+        {
+            $path = '/rest/sql';
         }
         $db = $config->getDb();
         if ('' !== $db)
