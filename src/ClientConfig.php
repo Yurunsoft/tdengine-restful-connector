@@ -58,7 +58,7 @@ class ClientConfig
      *
      * @var string
      */
-    protected $version = '3';
+    protected $version = '2';
 
     public function __construct(array $config = [])
     {
