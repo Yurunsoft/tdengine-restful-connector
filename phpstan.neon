@@ -13,6 +13,9 @@ parameters:
     bootstrapFiles:
         - vendor/autoload.php
 
+    ignoreErrors:
+        - '#unknown class Swoole\\#'
+
     treatPhpDocTypesAsCertain: false
     checkGenericClassInNonGenericObjectType: false
     checkMissingIterableValueType: false

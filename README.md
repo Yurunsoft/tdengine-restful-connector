@@ -37,6 +37,7 @@
     // 'ssl'             => false,
     // 'timestampFormat' => \Yurun\TDEngine\Constants\TimeStampFormat::LOCAL_STRING,
     // 'keepAlive'       => true,
+    // 'version'         => '3', // TDengine 版本
 ]));
 // 设置默认数据库为test
 \Yurun\TDEngine\TDEngineManager::setDefaultClientName('test');
@@ -57,6 +58,7 @@ $client = new \Yurun\TDEngine\Client(new \Yurun\TDEngine\ClientConfig([
     // 'ssl'             => false,
     // 'timestampFormat' => \Yurun\TDEngine\Constants\TimeStampFormat::LOCAL_STRING,
     // 'keepAlive'       => true,
+    // 'version'         => '3', // TDengine 版本
 ]));
 
 // 通过 sql 方法执行 sql 语句
