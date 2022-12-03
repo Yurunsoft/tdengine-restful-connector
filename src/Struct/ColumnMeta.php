@@ -5,13 +5,14 @@ declare(strict_types=1);
 namespace Yurun\TDEngine\Struct;
 
 /**
- * @method string getTypeName()
+ * @method string|null getTypeName()
  * @method static string|null getTypeName(int $value)
  * @method int    getTypeValue()
  * @method static int|null getTypeValue(string $name)
  */
 class ColumnMeta
 {
+    public const TYPE_UNKNOWN = 0;
     public const TYPE_BOOL = 1;
     public const TYPE_TINYINT = 2;
     public const TYPE_SMALLINT = 3;
@@ -72,7 +73,7 @@ class ColumnMeta
     /**
      * 列类型名称.
      *
-     * @var string
+     * @var string|null
      */
     protected $typeName;
 
@@ -129,7 +130,7 @@ class ColumnMeta
             $value = array_search($arguments[0] ?? null, self::TYPE_MAP);
             if (false === $value)
             {
-                return null;
+                return self::TYPE_UNKNOWN;
             }
             else
             {
