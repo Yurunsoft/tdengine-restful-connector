@@ -108,33 +108,32 @@ class ColumnMeta
     {
         if ('getTypeName' === $name)
         {
-            return $this->typeName;
-        }
-        elseif ('getTypeValue' === $name)
-        {
-            return $this->type;
-        }
-    }
-
-    /**
-     * @return mixed
-     */
-    public static function __callStatic(string $name, array $arguments)
-    {
-        if ('getTypeName' === $name)
-        {
-            return self::TYPE_MAP[$arguments[0] ?? null] ?? null;
-        }
-        elseif ('getTypeValue' === $name)
-        {
-            $value = array_search($arguments[0] ?? null, self::TYPE_MAP);
-            if (false === $value)
+            if ($arguments)
             {
-                return self::TYPE_UNKNOWN;
+                return self::TYPE_MAP[$arguments[0] ?? null] ?? null;
             }
             else
             {
-                return $value;
+                return $this->typeName;
+            }
+        }
+        elseif ('getTypeValue' === $name)
+        {
+            if ($arguments)
+            {
+                $value = array_search($arguments[0] ?? null, self::TYPE_MAP);
+                if (false === $value)
+                {
+                    return self::TYPE_UNKNOWN;
+                }
+                else
+                {
+                    return $value;
+                }
+            }
+            else
+            {
+                return $this->type;
             }
         }
     }
@@ -159,7 +158,7 @@ class ColumnMeta
     public function setType(int $type): self
     {
         $this->type = $type;
-        $this->typeName = static::getTypeName($type);
+        $this->typeName = $this->getTypeName($type);
 
         return $this;
     }
@@ -167,7 +166,7 @@ class ColumnMeta
     public function setTypeName(string $typeName): self
     {
         $this->typeName = $typeName;
-        $this->type = static::getTypeValue($typeName);
+        $this->type = $this->getTypeValue($typeName);
 
         return $this;
     }
