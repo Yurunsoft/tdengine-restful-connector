@@ -65,7 +65,7 @@ class SqlResult
 
     public function getStatus(): string
     {
-        return $this->response['status'];
+        return $this->response['status'] ?? '';
     }
 
     public function getHead(): array
@@ -75,11 +75,11 @@ class SqlResult
 
     public function getRows(): int
     {
-        return $this->response['rows'];
+        return $this->response['rows'] ?? 0;
     }
 
     public function getCode(): int
     {
-        return $this->response['code'];
+        return $this->response['code'] ?? -1;
     }
 }

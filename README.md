@@ -86,9 +86,9 @@ foreach ($result->getData() as $row)
     echo $row['列名']; // 经过处理，可以直接使用列名获取指定列数据
 }
 
-$result->getStatus(); // 告知操作结果是成功还是失败；同接口返回格式
+$result->getStatus(); // 告知操作结果是成功还是失败；同接口返回格式。仅 TDengine 2.x 有用。
 
 $result->getHead(); // 表的定义，如果不返回结果集，则仅有一列“affected_rows”。（从 2.0.17 版本开始，建议不要依赖 head 返回值来判断数据列类型，而推荐使用 column_meta。在未来版本中，有可能会从返回值中去掉 head 这一项。）；同接口返回格式
 
-$result->getRow(); // 表明总共多少行数据；同接口返回格式
+$result->getRows(); // 表明总共多少行数据；同接口返回格式
 ```
