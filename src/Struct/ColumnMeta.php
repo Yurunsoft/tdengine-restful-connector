@@ -6,9 +6,9 @@ namespace Yurun\TDEngine\Struct;
 
 /**
  * @method string|null getTypeName()
- * @method static string|null getTypeName(int $value)
- * @method int    getTypeValue()
- * @method static int|null getTypeValue(string $name)
+ * @method static      string|null getTypeName(int $value)
+ * @method int         getTypeValue()
+ * @method static      int|null getTypeValue(string $name)
  */
 class ColumnMeta
 {
