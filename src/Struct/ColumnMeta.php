@@ -101,39 +101,34 @@ class ColumnMeta
         $this->setLength($length);
     }
 
-    /**
-     * @return mixed
-     */
-    public function __call(string $name, array $arguments)
+    public function getTypeName(?int $type = null): string
     {
-        if ('getTypeName' === $name)
+        if (null === $type)
         {
-            if ($arguments)
-            {
-                return self::TYPE_MAP[$arguments[0] ?? null] ?? null;
-            }
-            else
-            {
-                return $this->typeName;
-            }
+            return $this->typeName;
         }
-        elseif ('getTypeValue' === $name)
+        else
         {
-            if ($arguments)
+            return self::TYPE_MAP[$type] ?? null;
+        }
+    }
+
+    public function getTypeValue(?string $typeName = null): int
+    {
+        if (null === $typeName)
+        {
+            return $this->type;
+        }
+        else
+        {
+            $value = array_search($typeName, self::TYPE_MAP);
+            if (false === $value)
             {
-                $value = array_search($arguments[0] ?? null, self::TYPE_MAP);
-                if (false === $value)
-                {
-                    return self::TYPE_UNKNOWN;
-                }
-                else
-                {
-                    return $value;
-                }
+                return self::TYPE_UNKNOWN;
             }
             else
             {
-                return $this->type;
+                return $value;
             }
         }
     }
