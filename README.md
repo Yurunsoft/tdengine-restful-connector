@@ -38,6 +38,7 @@
     // 'timestampFormat' => \Yurun\TDEngine\Constants\TimeStampFormat::LOCAL_STRING, // 此配置 TDengine 3.0 下失效，统一返回格式为：2022-11-25T05:41:04.690Z
     // 'keepAlive'       => true,
     // 'version'         => '3', // TDengine 版本
+    // 'timezone'        => 'UTC', // TDengine >= 3.0 时支持，可选参数，指定返回时间的时区
 ]));
 // 设置默认数据库为test
 \Yurun\TDEngine\TDEngineManager::setDefaultClientName('test');
@@ -59,6 +60,7 @@ $client = new \Yurun\TDEngine\Client(new \Yurun\TDEngine\ClientConfig([
     // 'timestampFormat' => \Yurun\TDEngine\Constants\TimeStampFormat::LOCAL_STRING, // 此配置 TDengine 3.0 下失效，统一返回格式为：2022-11-25T05:41:04.690Z
     // 'keepAlive'       => true,
     // 'version'         => '3', // TDengine 版本
+    // 'timezone'        => 'UTC', // TDengine >= 3.0 时支持，可选参数，指定返回时间的时区
 ]));
 
 // 通过 sql 方法执行 sql 语句
