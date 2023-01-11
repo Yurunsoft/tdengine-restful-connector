@@ -43,8 +43,9 @@ class Client
     public function buildUrl(string $path): string
     {
         $config = $this->getConfig();
+        $query = http_build_query(['tz' => $config->getTz()]);
 
-        return Uri::makeUri($config->getHost(), $path, '', $config->getPort(), $config->getSsl() ? 'https' : 'http', '', $config->getUser() . ':' . $config->getPassword())->__toString();
+        return Uri::makeUri($config->getHost(), $path, $query, $config->getPort(), $config->getSsl() ? 'https' : 'http', '', $config->getUser() . ':' . $config->getPassword())->__toString();
     }
 
     private function getHttpClient(): HttpRequest

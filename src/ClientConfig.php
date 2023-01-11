@@ -54,6 +54,11 @@ class ClientConfig
     protected $keepAlive = true;
 
     /**
+     * @var string
+     */
+    protected $tz = 'UTC';
+
+    /**
      * TDengine 版本.
      *
      * @var string
@@ -187,6 +192,18 @@ class ClientConfig
     public function setVersion(string $version): self
     {
         $this->version = $version;
+
+        return $this;
+    }
+
+    public function getTz(): string
+    {
+        return $this->tz;
+    }
+
+    public function setTz(string $tz): self
+    {
+        $this->tz = $tz;
 
         return $this;
     }
