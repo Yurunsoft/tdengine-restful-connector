@@ -43,7 +43,12 @@ class Client
     public function buildUrl(string $path): string
     {
         $config = $this->getConfig();
-        $query = http_build_query(['tz' => $config->getTz()]);
+        if (version_compare($config->getVersion(), '3', '<'))
+        {
+            $query = '';
+        } else {
+            $query = http_build_query(['tz' => $config->getTimezone()]);
+        }
 
         return Uri::makeUri($config->getHost(), $path, $query, $config->getPort(), $config->getSsl() ? 'https' : 'http', '', $config->getUser() . ':' . $config->getPassword())->__toString();
     }

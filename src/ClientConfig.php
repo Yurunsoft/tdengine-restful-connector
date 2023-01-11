@@ -54,16 +54,16 @@ class ClientConfig
     protected $keepAlive = true;
 
     /**
-     * @var string
-     */
-    protected $tz = 'UTC';
-
-    /**
      * TDengine 版本.
      *
      * @var string
      */
     protected $version = '3';
+
+    /**
+     * @var string
+     */
+    protected $timezone = 'UTC';
 
     public function __construct(array $config = [])
     {
@@ -196,14 +196,14 @@ class ClientConfig
         return $this;
     }
 
-    public function getTz(): string
+    public function getTimezone(): string
     {
-        return $this->tz;
+        return $this->timezone;
     }
 
-    public function setTz(string $tz): self
+    public function setTimezone(string $timezone): self
     {
-        $this->tz = $tz;
+        $this->timezone = $timezone;
 
         return $this;
     }
