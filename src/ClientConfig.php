@@ -60,6 +60,11 @@ class ClientConfig
      */
     protected $version = '2';
 
+    /**
+     * @var string
+     */
+    protected $timezone = 'UTC';
+
     public function __construct(array $config = [])
     {
         if ($config)
@@ -187,6 +192,18 @@ class ClientConfig
     public function setVersion(string $version): self
     {
         $this->version = $version;
+
+        return $this;
+    }
+
+    public function getTimezone(): string
+    {
+        return $this->timezone;
+    }
+
+    public function setTimezone(string $timezone): self
+    {
+        $this->timezone = $timezone;
 
         return $this;
     }
