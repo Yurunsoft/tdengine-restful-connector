@@ -46,7 +46,9 @@ class Client
         if (version_compare($config->getVersion(), '3', '<'))
         {
             $query = '';
-        } else {
+        }
+        else
+        {
             $query = http_build_query(['tz' => $config->getTimezone()]);
         }
 
