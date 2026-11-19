@@ -121,7 +121,14 @@ class ColumnMeta
         }
         else
         {
-            $value = array_search($typeName, self::TYPE_MAP);
+            $typeAliases = [
+                'BOOLEAN' => 'BOOL',
+                'INT32'   => 'INT',
+                'INT64'   => 'BIGINT',
+                'STRING'  => 'NCHAR',
+                'TEXT'    => 'NCHAR',
+            ];
+            $value = array_search($typeAliases[strtoupper($typeName)] ?? strtoupper($typeName), self::TYPE_MAP);
             if (false === $value)
             {
                 return self::TYPE_UNKNOWN;

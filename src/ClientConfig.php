@@ -8,6 +8,11 @@ use Yurun\TDEngine\Constants\TimeStampFormat;
 
 class ClientConfig
 {
+    public const TYPE_TDENGINE = 'TDENGINE';
+    public const TYPE_IOTDB = 'IOTDB';
+    public const IOTDB_MODEL_TREE = 'TREE';
+    public const IOTDB_MODEL_TABLE = 'TABLE';
+
     /**
      * @var string
      */
@@ -24,6 +29,30 @@ class ClientConfig
     protected $port = 6041;
 
     /**
+     * @var bool
+     */
+    private $portConfigured = false;
+
+    /**
+     * @var string
+     */
+    protected $dbType = self::TYPE_TDENGINE;
+
+    /**
+     * IoTDB REST API version.
+     *
+     * @var string
+     */
+    protected $iotdbApiVersion = 'v1';
+
+    /**
+     * IoTDB data model.
+     *
+     * @var string
+     */
+    protected $iotdbModel = self::IOTDB_MODEL_TREE;
+
+    /**
      * @var string
      */
     protected $user = 'root';
@@ -32,6 +61,11 @@ class ClientConfig
      * @var string
      */
     protected $password = 'taosdata';
+
+    /**
+     * @var bool
+     */
+    private $passwordConfigured = false;
 
     /**
      * @var string
@@ -69,10 +103,16 @@ class ClientConfig
     {
         if ($config)
         {
+            if (isset($config['dbType']))
+            {
+                $this->setDbType($config['dbType']);
+            }
             foreach ($config as $key => $value)
             {
                 $this->$key = $value;
             }
+            $this->portConfigured = array_key_exists('port', $config);
+            $this->passwordConfigured = array_key_exists('password', $config);
         }
     }
 
@@ -108,6 +148,56 @@ class ClientConfig
     public function setPort(int $port): self
     {
         $this->port = $port;
+        $this->portConfigured = true;
+
+        return $this;
+    }
+
+    public function getDbType(): string
+    {
+        return $this->dbType;
+    }
+
+    public function setDbType(string $dbType): self
+    {
+        $this->dbType = strtoupper($dbType);
+        if (!$this->portConfigured)
+        {
+            $this->port = $this->isIoTDB() ? 18080 : 6041;
+        }
+        if (!$this->passwordConfigured)
+        {
+            $this->password = $this->isIoTDB() ? 'root' : 'taosdata';
+        }
+
+        return $this;
+    }
+
+    public function isIoTDB(): bool
+    {
+        return self::TYPE_IOTDB === strtoupper($this->dbType);
+    }
+
+    public function getIoTDBApiVersion(): string
+    {
+        return $this->iotdbApiVersion;
+    }
+
+    public function setIoTDBApiVersion(string $iotdbApiVersion): self
+    {
+        $this->iotdbApiVersion = strtolower($iotdbApiVersion);
+
+        return $this;
+    }
+
+    public function getIoTDBModel(): string
+    {
+        return $this->iotdbModel;
+    }
+
+    public function setIoTDBModel(string $iotdbModel): self
+    {
+        $this->iotdbModel = strtoupper($iotdbModel);
 
         return $this;
     }
@@ -132,6 +222,7 @@ class ClientConfig
     public function setPassword(string $password): self
     {
         $this->password = $password;
+        $this->passwordConfigured = true;
 
         return $this;
     }

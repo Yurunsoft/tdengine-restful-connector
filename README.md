@@ -94,3 +94,31 @@ $result->getHead(); // 表的定义，如果不返回结果集，则仅有一列
 
 $result->getRows(); // 表明总共多少行数据；同接口返回格式
 ```
+
+## IoTDB REST
+
+The client can also use Apache IoTDB REST without changing the `Client::sql()` call or the `SqlResult` accessors. Configure `dbType` as `IOTDB`; the default REST port is `18080`. Tree REST v1 and v2 use Basic authentication and JSON requests. The Table model is supported through Table REST v1 and sends the configured `db` as the request's `database` field.
+
+```php
+$client = new \Yurun\TDEngine\Client(new \Yurun\TDEngine\ClientConfig([
+    'dbType'          => \Yurun\TDEngine\ClientConfig::TYPE_IOTDB,
+    'iotdbApiVersion' => 'v2', // Tree REST: v1 or v2
+    'iotdbModel'      => \Yurun\TDEngine\ClientConfig::IOTDB_MODEL_TREE,
+    'host'            => '127.0.0.1',
+    'user'            => 'root',
+    'password'        => 'root',
+    'port'            => 18080,
+]));
+
+$result = $client->sql('select temperature from root.factory.device01 limit 10');
+foreach ($result->getData() as $row)
+{
+    echo $row['Time'], ': ', $row['root.factory.device01.temperature'], PHP_EOL;
+}
+```
+
+To use the IoTDB Table model, select `IOTDB_MODEL_TABLE`, set `iotdbApiVersion` to `v1`, and set `db` to the target database. SQL is sent to `/rest/table/v1/query` or `/rest/table/v1/nonQuery`; Tree SQL uses `/rest/v1/...` or `/rest/v2/...`. Tree query columnar results are transposed into the same row-oriented `SqlResult::getData()` format as TDengine, with Tree timestamps kept as integer milliseconds; Table query rows are preserved. IoTDB `code`/`message` errors are raised as `OperationException` with the server code and message. Invalid JSON or transport failures raise `NetworkException`.
+
+Enable IoTDB's REST service (`enable_rest_service=true`) on the server. This adapter sends SQL through REST; it does not implement a separate tablet/record writer API. Table REST currently supports API v1 only.
+
+See the [Tree REST v1](https://iotdb.apache.org/UserGuide/latest/API/RestServiceV1_apache.html), [Tree REST v2](https://iotdb.apache.org/UserGuide/latest/API/RestServiceV2_apache.html), and [Table REST v1](https://iotdb.apache.org/UserGuide/latest-Table/API/RestAPI-V1_apache.html) documentation for server setup and SQL details.
